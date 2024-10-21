@@ -16,6 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <springdoc.version>2.1.0</springdoc.version> <!-- Moved version to properties for easier updates -->
+        <hibernate.version>6.2.5.Final</hibernate.version> <!-- Added Hibernate version -->
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +33,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version> <!-- Specify the version here -->
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version> <!-- Using property for Hibernate version -->
         </dependency>
 
         <dependency>
