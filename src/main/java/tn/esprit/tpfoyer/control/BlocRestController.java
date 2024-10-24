@@ -1,6 +1,5 @@
 package tn.esprit.tpfoyer.control;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -16,60 +15,50 @@ import java.util.List;
 @RequestMapping("/bloc")
 public class BlocRestController {
 
-    IBlocService blocService;
+    private final IBlocService blocService;
 
-
-    //http://localhost:8089/tpfoyer/bloc/retrieve-all-blocs
-
+    // Retrieve all blocs
     @GetMapping("/retrieve-all-blocs")
-    @Operation(description = "WS de récuperation de tous les Blocs ")
+    @Operation(description = "WS de récupération de tous les Blocs")
     public List<Bloc> getBlocs() {
         return blocService.retrieveAllBlocs();
-        //return listBlocs;
     }
 
-
-    // http://localhost:8089/tpfoyer/bloc/retrieve-bloc/8
+    // Retrieve a specific bloc by ID
     @GetMapping("/retrieve-bloc/{bloc-id}")
     public Bloc retrieveBloc(@PathVariable("bloc-id") Long bId) {
-        Bloc bloc = blocService.retrieveBloc(bId);
-        return bloc;
-
+        return blocService.retrieveBloc(bId);
     }
 
-    // http://localhost:8089/tpfoyer/bloc/add-bloc
+    // Add a new bloc
     @PostMapping("/add-bloc")
     public Bloc addBloc(@RequestBody Bloc c) {
-        Bloc bloc = blocService.addBloc(c);
-        return bloc;
+        return blocService.addBloc(c);
     }
 
-    // http://localhost:8089/tpfoyer/bloc/remove-bloc/{bloc-id}
+    // Remove a bloc by ID
     @DeleteMapping("/remove-bloc/{bloc-id}")
     public void removeBloc(@PathVariable("bloc-id") Long chId) {
         blocService.removeBloc(chId);
     }
 
-    // http://localhost:8089/tpfoyer/bloc/modify-bloc
+    // Modify an existing bloc
     @PutMapping("/modify-bloc")
     public Bloc modifyBloc(@RequestBody Bloc c) {
-        Bloc bloc =blocService.modifyBloc(c);
-        return bloc;
+        return blocService.modifyBloc(c);
     }
 
+    // Retrieve blocs without foyer
     @GetMapping("/trouver-blocs-sans-foyer")
-    public List<Bloc> getBlocswirhoutFoyer() {
-        List<Bloc> listBlocs = blocService.trouverBlocsSansFoyer();
-        return listBlocs;
+    public List<Bloc> getBlocsWithoutFoyer() {
+        return blocService.trouverBlocsSansFoyer();
     }
 
+    // Retrieve blocs by name and capacity
     @GetMapping("/get-bloc-nb-c/{nb}/{c}")
     public List<Bloc> recuperBlocsParNomEtCap(
             @PathVariable("nb") String nb,
             @PathVariable("c") long c) {
-
         return blocService.trouverBlocsParNomEtCap(nb, c);
-
     }
-
 }
