@@ -12,39 +12,35 @@ import java.util.List;
 @RequestMapping("/foyer")
 public class FoyerRestController {
 
-    IFoyerService foyerService;
+    private final IFoyerService foyerService;
 
-    // http://localhost:8089/tpfoyer/foyer/retrieve-all-foyers
+    // Retrieve all foyers
     @GetMapping("/retrieve-all-foyers")
     public List<Foyer> getFoyers() {
-        List<Foyer> listFoyers = foyerService.retrieveAllFoyers();
-        return listFoyers;
+        return foyerService.retrieveAllFoyers();
     }
-    // http://localhost:8089/tpfoyer/foyer/retrieve-foyer/8
+
+    // Retrieve a foyer by ID
     @GetMapping("/retrieve-foyer/{foyer-id}")
     public Foyer retrieveFoyer(@PathVariable("foyer-id") Long fId) {
-        Foyer foyer = foyerService.retrieveFoyer(fId);
-        return foyer;
+        return foyerService.retrieveFoyer(fId);
     }
 
-    // http://localhost:8089/tpfoyer/foyer/add-foyer
+    // Add a new foyer
     @PostMapping("/add-foyer")
     public Foyer addFoyer(@RequestBody Foyer f) {
-        Foyer foyer = foyerService.addFoyer(f);
-        return foyer;
+        return foyerService.addFoyer(f);
     }
 
-    // http://localhost:8089/tpfoyer/foyer/remove-foyer/{foyer-id}
+    // Remove a foyer by ID
     @DeleteMapping("/remove-foyer/{foyer-id}")
     public void removeFoyer(@PathVariable("foyer-id") Long fId) {
         foyerService.removeFoyer(fId);
     }
 
-    // http://localhost:8089/tpfoyer/foyer/modify-foyer
+    // Modify an existing foyer
     @PutMapping("/modify-foyer")
     public Foyer modifyFoyer(@RequestBody Foyer f) {
-        Foyer foyer = foyerService.modifyFoyer(f);
-        return foyer;
+        return foyerService.modifyFoyer(f);
     }
-
 }
