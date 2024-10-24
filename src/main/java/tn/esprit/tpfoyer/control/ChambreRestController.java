@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer.entity.Chambre;
 import tn.esprit.tpfoyer.entity.TypeChambre;
 import tn.esprit.tpfoyer.service.IChambreService;
+
 import java.util.List;
 
 @RestController
@@ -53,6 +54,6 @@ public class ChambreRestController {
     // Find a chambre based on student's CIN
     @GetMapping("/trouver-chambre-selon-etudiant/{cin}")
     public Chambre trouverChSelonEt(@PathVariable("cin") long cin) {
-        return chambreService.trouverchambreSelonEtudiant(cin);
+        return chambreService.trouverChambreSelonEtudiant(cin); // Corrected method name
     }
 }
