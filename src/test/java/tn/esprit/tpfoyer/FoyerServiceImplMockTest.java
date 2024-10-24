@@ -1,23 +1,22 @@
 package tn.esprit.tpfoyer.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.repository.FoyerRepository;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@ExtendWith(MockitoExtension.class)
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class) // Use MockitoExtension for JUnit 5
 public class FoyerServiceImplMockTest {
 
     @Mock
@@ -26,79 +25,80 @@ public class FoyerServiceImplMockTest {
     @InjectMocks
     private FoyerServiceImpl foyerService;
 
-    private Foyer foyer = new Foyer();
-
-    private List<Foyer> listFoyers = new ArrayList<Foyer>() {
-        {
-            add(new Foyer());
-            add(new Foyer());
-        }
-    };
-
-    @Test
-    public void testRetrieveAllFoyers() {
-        // Mocking the repository layer
-        Mockito.when(foyerRepository.findAll()).thenReturn(listFoyers);
-
-        // Calling the service method
-        List<Foyer> retrievedFoyers = foyerService.retrieveAllFoyers();
-
-        // Verifying the result
-        Assertions.assertNotNull(retrievedFoyers);
-        Assertions.assertEquals(2, retrievedFoyers.size());
+    @BeforeEach
+    public void setUp() {
+        // No need for initMocks anymore as we're using @ExtendWith(MockitoExtension.class)
     }
 
     @Test
-    public void testRetrieveFoyerById() {
-        // Mocking the repository layer
-        Mockito.when(foyerRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(foyer));
+    public void testRetrieveAllFoyers() {
+        // Mock data
+        Foyer foyer1 = new Foyer();
+        Foyer foyer2 = new Foyer();
+        List<Foyer> mockFoyers = Arrays.asList(foyer1, foyer2);
 
-        // Calling the service method
-        Foyer retrievedFoyer = foyerService.retrieveFoyer(1L);
+        when(foyerRepository.findAll()).thenReturn(mockFoyers);
 
-        // Verifying the result
-        Assertions.assertNotNull(retrievedFoyer);
+        // Test
+        List<Foyer> foyers = foyerService.retrieveAllFoyers();
+
+        // Verify
+        assertEquals(2, foyers.size());
+        verify(foyerRepository).findAll();
+    }
+
+    @Test
+    public void testRetrieveFoyer() {
+        // Mock data
+        Long foyerId = 1L;
+        Foyer mockFoyer = new Foyer();
+        when(foyerRepository.findById(foyerId)).thenReturn(Optional.of(mockFoyer));
+
+        // Test
+        Foyer retrievedFoyer = foyerService.retrieveFoyer(foyerId);
+
+        // Verify
+        assertNotNull(retrievedFoyer);
+        verify(foyerRepository).findById(foyerId);
     }
 
     @Test
     public void testAddFoyer() {
-        // Mocking the repository layer
-        Mockito.when(foyerRepository.save(Mockito.any(Foyer.class))).thenReturn(foyer);
+        // Mock data
+        Foyer mockFoyer = new Foyer();
+        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer);
 
-        // Calling the service method
-        Foyer addedFoyer = foyerService.addFoyer(foyer);
+        // Test
+        Foyer addedFoyer = foyerService.addFoyer(mockFoyer);
 
-        // Verifying the result
-        Assertions.assertNotNull(addedFoyer);
+        // Verify
+        assertNotNull(addedFoyer);
+        verify(foyerRepository).save(mockFoyer);
     }
 
     @Test
     public void testModifyFoyer() {
-        // Mocking the repository layer
-        Mockito.when(foyerRepository.save(Mockito.any(Foyer.class))).thenReturn(foyer);
+        // Mock data
+        Foyer mockFoyer = new Foyer();
+        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer);
 
-        // Modifying the foyer object
-        foyer.setName("Updated Name");
+        // Test
+        Foyer modifiedFoyer = foyerService.modifyFoyer(mockFoyer);
 
-        // Calling the service method
-        Foyer modifiedFoyer = foyerService.modifyFoyer(foyer);
-
-        // Verifying the result
-        Assertions.assertNotNull(modifiedFoyer);
-        Assertions.assertEquals("Updated Name", modifiedFoyer.getName());
+        // Verify
+        assertNotNull(modifiedFoyer);
+        verify(foyerRepository).save(mockFoyer);
     }
 
     @Test
     public void testRemoveFoyer() {
-        long foyerId = 1L;
+        // Mock data
+        Long foyerId = 1L;
 
-        // Ensure you're calling doNothing on the mock repository
-        Mockito.doNothing().when(foyerRepository).deleteById(foyerId);
-
-        // Calling the service method
+        // Test
         foyerService.removeFoyer(foyerId);
 
-        // Verify that deleteById was called once with the expected argument
-        Mockito.verify(foyerRepository, Mockito.times(1)).deleteById(foyerId);
+        // Verify that deleteById method is called with the correct ID
+        verify(foyerRepository).deleteById(foyerId);
     }
 }
