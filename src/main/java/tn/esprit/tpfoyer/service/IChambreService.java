@@ -7,15 +7,14 @@ import java.util.List;
 
 public interface IChambreService {
 
-    public List<Chambre> retrieveAllChambres();
-    public Chambre retrieveChambre(Long chambreId);
-    public Chambre addChambre(Chambre c);
-    public void removeChambre(Long chambreId);
-    public Chambre modifyChambre(Chambre chambre);
+    List<Chambre> retrieveAllChambres();
+    Chambre retrieveChambre(Long chambreId);
+    Chambre addChambre(Chambre chambre); // Renamed 'c' to 'chambre' for consistency
+    void removeChambre(Long chambreId);
+    Chambre modifyChambre(Chambre chambre);
 
     // Here we will add later methods calling keywords and methods calling JPQL
-    public Chambre trouverchambreSelonEtudiant(long Cin);
+    Chambre trouverChambreSelonEtudiant(long cin); // Renamed 'Cin' to 'cin' to match naming convention
 
-    public List<Chambre> recupererChambresSelonTyp(TypeChambre tc);
-
+    List<Chambre> recupererChambresSelonTyp(TypeChambre typeChambre); // Consider renaming for clarity
 }
