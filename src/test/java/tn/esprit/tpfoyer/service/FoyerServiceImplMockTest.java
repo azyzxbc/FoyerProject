@@ -16,14 +16,14 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class) // Use MockitoExtension for JUnit 5
+@ExtendWith(MockitoExtension.class)
 class FoyerServiceImplMockTest {
 
     @Mock
-    private FoyerRepository foyerRepository; // Mock the FoyerRepository
+    private FoyerRepository foyerRepository;
 
     @InjectMocks
-    private FoyerServiceImpl foyerService; // Inject mocks into the service
+    private FoyerServiceImpl foyerService;
 
     @BeforeEach
     public void setUp() {
@@ -32,74 +32,70 @@ class FoyerServiceImplMockTest {
 
     @Test
     void testRetrieveAllFoyers() {
-        // Mock data
         Foyer foyer1 = new Foyer();
         Foyer foyer2 = new Foyer();
         List<Foyer> mockFoyers = Arrays.asList(foyer1, foyer2);
 
-        when(foyerRepository.findAll()).thenReturn(mockFoyers); // Mocking repository call
+        when(foyerRepository.findAll()).thenReturn(mockFoyers);
 
-        // Test
         List<Foyer> foyers = foyerService.retrieveAllFoyers();
 
-        // Verify
         assertEquals(2, foyers.size());
-        verify(foyerRepository).findAll(); // Verify the interaction with the repository
+        verify(foyerRepository).findAll();
     }
 
     @Test
-    void testRetrieveFoyer() {
-        // Mock data
+    void testRetrieveFoyerPresent() {
         Long foyerId = 1L;
         Foyer mockFoyer = new Foyer();
-        when(foyerRepository.findById(foyerId)).thenReturn(Optional.of(mockFoyer)); // Mocking repository call
+        when(foyerRepository.findById(foyerId)).thenReturn(Optional.of(mockFoyer));
 
-        // Test
         Foyer retrievedFoyer = foyerService.retrieveFoyer(foyerId);
 
-        // Verify
         assertNotNull(retrievedFoyer);
-        verify(foyerRepository).findById(foyerId); // Verify the interaction with the repository
+        assertEquals(mockFoyer, retrievedFoyer);
+        verify(foyerRepository).findById(foyerId);
+    }
+
+    @Test
+    void testRetrieveFoyerNotPresent() {
+        Long foyerId = 1L;
+        when(foyerRepository.findById(foyerId)).thenReturn(Optional.empty());
+
+        Foyer retrievedFoyer = foyerService.retrieveFoyer(foyerId);
+
+        assertNull(retrievedFoyer);
+        verify(foyerRepository).findById(foyerId);
     }
 
     @Test
     void testAddFoyer() {
-        // Mock data
         Foyer mockFoyer = new Foyer();
-        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer); // Mocking repository call
+        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer);
 
-        // Test
         Foyer addedFoyer = foyerService.addFoyer(mockFoyer);
 
-        // Verify
         assertNotNull(addedFoyer);
-        verify(foyerRepository).save(mockFoyer); // Verify the interaction with the repository
+        verify(foyerRepository).save(mockFoyer);
     }
 
     @Test
     void testModifyFoyer() {
-        // Mock data
         Foyer mockFoyer = new Foyer();
-        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer); // Mocking repository call
+        when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer);
 
-        // Test
         Foyer modifiedFoyer = foyerService.modifyFoyer(mockFoyer);
 
-        // Verify
         assertNotNull(modifiedFoyer);
-        verify(foyerRepository).save(mockFoyer); // Verify the interaction with the repository
+        verify(foyerRepository).save(mockFoyer);
     }
 
     @Test
     void testRemoveFoyer() {
-        // Mock data
         Long foyerId = 1L;
 
-        // Test
         foyerService.removeFoyer(foyerId);
 
-        // Verify that deleteById method is called with the correct ID
-        verify(foyerRepository).deleteById(foyerId); // Verify the interaction with the repository
+        verify(foyerRepository).deleteById(foyerId);
     }
 }
-
