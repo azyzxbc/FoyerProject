@@ -22,10 +22,8 @@ public class EtudiantServiceImpl implements IEtudiantService {
         Optional<Etudiant> optionalEtudiant = etudiantRepository.findById(etudiantId);
         if (optionalEtudiant.isPresent()) {
             return optionalEtudiant.get();
-        } else {
-            // Handle the case when the Etudiant is not found
-            // You might want to throw an exception or return null based on your error handling strategy
-            return null; // or throw new EntityNotFoundException("Etudiant not found");
+        } else { 
+            return null;
         }
     }
 
