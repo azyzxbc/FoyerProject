@@ -6,7 +6,7 @@ import tn.esprit.tpfoyer.entity.Bloc;
 import java.util.List;
 @Repository
  public interface BlocRepository extends JpaRepository<Bloc, Long> {
-   List<Bloc> findAllByCapaciteBlocGreaterThan(long c)
+   List<Bloc> findAllByCapaciteBlocGreaterThan(long c);
     List<Bloc> findAllByNomBlocStartingWith(String c);
     List<Bloc> findAllByNomBlocAndCapaciteBloc (String nom , long capacite );
     Bloc findByNomBloc (String nom);
