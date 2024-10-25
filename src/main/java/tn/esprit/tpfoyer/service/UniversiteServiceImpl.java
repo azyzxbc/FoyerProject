@@ -19,10 +19,11 @@ public class UniversiteServiceImpl implements IUniversiteService {
     }
 
     public Universite retrieveUniversite(Long universiteId) {
-        Optional<Universite> optionalUniversite = universiteRepository.findById(universiteId);
-        if (optionalUniversite.isPresent()) {
-            return optionalUniversite.get();
-        }
+    Optional<Universite> optionalUniversite = universiteRepository.findById(universiteId);
+    if (optionalUniversite.isPresent()) {
+        return optionalUniversite.get();
+    }
+    return null; 
     }
 
     public Universite addUniversite(Universite u) {
