@@ -13,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ReservationServiceImpl implements IReservationService {
 
-    ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
     public List<Reservation> retrieveAllReservations() {
         return reservationRepository.findAll();
@@ -24,6 +24,7 @@ public class ReservationServiceImpl implements IReservationService {
         if (optionalReservation.isPresent()) {
             return optionalReservation.get();
         }
+        return null;
     }
 
     public Reservation addReservation(Reservation r) {
