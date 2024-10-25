@@ -23,9 +23,7 @@ public class FoyerServiceImpl implements IFoyerService {
         if (optionalFoyer.isPresent()) {
             return optionalFoyer.get();
         } else {
-            // Handle the case when the Foyer is not found
-            // You might want to throw an exception or return null based on your error handling strategy
-            return null; // or throw new EntityNotFoundException("Foyer not found");
+            return null; 
         }
     }
 
