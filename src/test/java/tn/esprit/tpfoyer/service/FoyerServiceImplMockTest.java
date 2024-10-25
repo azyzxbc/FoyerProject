@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class) // Use MockitoExtension for JUnit 5
-public class FoyerServiceImplMockTest {
+class FoyerServiceImplMockTest {
 
     @Mock
     private FoyerRepository foyerRepository; // Mock the FoyerRepository
@@ -31,7 +31,7 @@ public class FoyerServiceImplMockTest {
     }
 
     @Test
-    public void testRetrieveAllFoyers() {
+    void testRetrieveAllFoyers() {
         // Mock data
         Foyer foyer1 = new Foyer();
         Foyer foyer2 = new Foyer();
@@ -48,7 +48,7 @@ public class FoyerServiceImplMockTest {
     }
 
     @Test
-    public void testRetrieveFoyer() {
+    void testRetrieveFoyer() {
         // Mock data
         Long foyerId = 1L;
         Foyer mockFoyer = new Foyer();
@@ -63,7 +63,7 @@ public class FoyerServiceImplMockTest {
     }
 
     @Test
-    public void testAddFoyer() {
+    void testAddFoyer() {
         // Mock data
         Foyer mockFoyer = new Foyer();
         when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer); // Mocking repository call
@@ -77,7 +77,7 @@ public class FoyerServiceImplMockTest {
     }
 
     @Test
-    public void testModifyFoyer() {
+    void testModifyFoyer() {
         // Mock data
         Foyer mockFoyer = new Foyer();
         when(foyerRepository.save(mockFoyer)).thenReturn(mockFoyer); // Mocking repository call
@@ -91,7 +91,7 @@ public class FoyerServiceImplMockTest {
     }
 
     @Test
-    public void testRemoveFoyer() {
+    void testRemoveFoyer() {
         // Mock data
         Long foyerId = 1L;
 
