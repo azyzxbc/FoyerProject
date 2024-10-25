@@ -22,8 +22,6 @@ public class UniversiteServiceImpl implements IUniversiteService {
         Optional<Universite> optionalUniversite = universiteRepository.findById(universiteId);
         if (optionalUniversite.isPresent()) {
             return optionalUniversite.get();
-        } else {
-            throw new RuntimeException("Universite not found with ID: " + universiteId);
         }
     }
 
