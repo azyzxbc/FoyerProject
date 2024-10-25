@@ -23,8 +23,6 @@ public class ReservationServiceImpl implements IReservationService {
         Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
         if (optionalReservation.isPresent()) {
             return optionalReservation.get();
-        } else {
-            throw new RuntimeException("Reservation not found with ID: " + reservationId);
         }
     }
 
