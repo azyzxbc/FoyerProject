@@ -42,7 +42,7 @@ Through this project, I explored the DevOps lifecycle and emphasized automation 
 
 The following architecture diagram illustrates the pipeline workflow from source code to deployment and monitoring:
 
-![Architecture](assets/images/architecture.png)
+![Architecture](assets/images/archi.png)
 
 ---
 
@@ -99,7 +99,7 @@ Here's an overview of the CI/CD pipeline stages, automated with Jenkins:
 ![Grafana](assets/images/grafana.png)
 
 ### Email Notifications
-![Email Notifications](assets/images/mailing.png)
+![Email Notifications](assets/images/mail.png)
 
 ---
 
